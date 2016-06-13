@@ -1,0 +1,14 @@
+.ceneter_div{
+	position: absolute;
+	top: 20%;
+	left: 50%;
+	transform: translate(-50%, -50%);	
+}
+.ceneter_input{
+	 position: absolute;
+	top: 150%;
+	left: 50%;
+	padding-left:8px;
+	padding-right:8px;
+	transform: translate(-50%, -50%);
+}

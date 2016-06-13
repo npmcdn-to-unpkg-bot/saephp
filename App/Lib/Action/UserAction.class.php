@@ -11,11 +11,9 @@ class UserAction extends Action {
         header("Content-Type:text/html; charset=utf-8");
     }
    
-	 public function  getUser(){ 
-		 
+	 public function  getUser(){ 		 
 		 $data=M('user'); 
-		 $page=$_POST['page'];		 
-		 
+		 $page=$_POST['page'];
 		 $pageCount=$_POST['count'];
 		 if($pageCount==null||0==$pageCount){
 			$pageCount=10;
@@ -24,35 +22,30 @@ class UserAction extends Action {
 		 
 		 $result=$data->order('id desc')->limit($page.','.$pageCount)->select();
 		 
-		$this->ajaxReturn($result ,'jsonp');
+		 
+		$this->ajaxReturn(success($result) ,'jsonp');
 		 
 	} 
 	
-	public function  regedit(){
-		
+	public function  regedit(){		
 		$user=M('user'); 
 		//echo  base64_decode(); 
 		 $data=($_POST['data']); 
-		 
-		 
-		$user->where('name=%s',$data['name']);
+			$data['pwd']=md5($data['pwd']);
+				
+			$result=$user->add($data);   
+			
+			if(empty($result)){
+					$this->ajaxReturn(fail('','用户名已经存在'),'jsonp');
+			}else{
+			$this->ajaxReturn(success($result),'jsonp');
+			}
 		
-		if($user==null){
-		 $result=$user->add($data);  		
 		
-		 $this->ajaxReturn( $result,'jsonp');
 			
-		}else{
-			 $this->ajaxReturn( $result,'jsonp');
-			
-		}
-		 
-			
-		 
-		 
-	 	
-		//$this->display('test');
-	}
+		}  
+	 
+ 
 	
 	
 	

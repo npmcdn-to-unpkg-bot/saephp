@@ -3,7 +3,8 @@
    <head>
       <title>首页</title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><meta http-equiv="content-type" content="text/html;charset=utf-8">
+	  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	  <meta http-equiv="content-type" content="text/html;charset=utf-8">
       <!-- 引入 Bootstrap -->
    <!-- 新 Bootstrap 核心 CSS 文件 -->
 <link href="http://apps.bdimg.com/libs/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
@@ -17,30 +18,26 @@
 <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
 <script src="http://apps.bdimg.com/libs/bootstrap/3.3.0/js/bootstrap.min.js"></script>
  <script src="__PUBLIC__/js/index.js"></script>
+    <link href="__PUBLIC__/css/index.css" rel="stylesheet" type="text/css"/>
   
-
    </head>
    <body> 
-	  
-	  <a  href='./User/regeditH'>注册</a> 
+	  <div  class='right_div'>
+	  <span id='name'></span>
+	  <a  id='reg' href='./User/regeditH'>注册</a> 
+	  </div>
  
   <table id='user' class="table table-striped"> 
-   <thead>
-      <tr>
-         <th>id</th>
-         <th>name</th>
-         <th>密码</th>
-      </tr>
-   </thead>
+    
    <tbody id="tbody">
    </tbody>
 </table>
 
 
-<div float='left'>
-<span  id='before'>上一页</span>
-<span   id='page'> 1</span>
-<span id='next'>下一页</span>
+<div  class='right_div'>
+<span  class='page' id='before'>上一页</span>
+<span   id='page'>1</span>
+<span  class='page' id='next'>下一页</span>
 
 
 </div>
@@ -49,6 +46,7 @@
     $(function () { 
     rxye.USER.getUser(1);
  	rxye.USER.onevent();
+	rxye.USER.getLocalName();
     });
 </script>
  

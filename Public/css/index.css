@@ -1,0 +1,26 @@
+.page:hover{
+	cursor:pointer
+}
+
+#page{
+	margin :6px
+}
+.right_div{	
+	float:right;
+	margin-right:16px;
+}
+.title{
+	margin-left: auto;
+	text-align:center;
+	margin-right: auto;
+	 
+	font-size:1.5em;
+}
+
+.tablebody{
+	margin-left: auto;
+	text-align:center;
+	margin-right: auto;
+	 
+	font-size:1.2em;
+}
