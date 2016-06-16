@@ -1,30 +1,51 @@
+/**
+ * Created by lishangfan on 2016/6/13.
+ */
+
 var isfinish = false;
 var rxye = {
     URL: {
-        user: function () {
-            return '.././User/getUser';
+        blog: function () {
+            return './getBlog';
+        },
+        writerblog:function () {
+            return './insertBlog';
         }
+
     },
-    /**
 
-     <tr>
-     <th>名称</th>
-     <th>城市</th>
-     <th>密码</th>
-     </tr>
-     */
-    USER: {
 
-        getUser: function (page) {
+    BLOG: {
+        writer: function () {
+            var  user_id=rxye.BLOG.getCookie('id');
+            var title=document.getElementById('title').value;
+            var  content=document.getElementById('content').value;
+            var  data={
+                'blog_title':title,
+                'blog_content':content,
+                'user_id':user_id
+            };
+
+            rxye.COMM(rxye.URL.writerblog(),data,function result(res) {
+                alert('发表成功');
+            });
+        },
+
+        initWriter: function () {
+            document.getElementById('summit_blog').onclick = function () {
+                rxye.BLOG.writer();
+            }
+        },
+
+
+        getUserBlog: function (page) {
             data = {
                 'page': page - 1,
                 'count': 10
-            };
-
-
-            rxye.COMM(rxye.URL.user(), data, function usersult(result) {
-                var table = document.getElementById('user');
-                $('#user tr').empty();
+            }; 
+            rxye.COMM(rxye.URL.blog(), data, function blogrsult(result) {
+                var table = document.getElementById('blog');
+                $('#blog tr').empty();
                 if (result.length < 10) {
                     isfinish = true;
                 }
@@ -35,28 +56,30 @@ var rxye = {
                 var cell2 = row.insertCell(1);
                 var cell3 = row.insertCell(2);
                 cell1.innerHTML = '<div><div class=title>id</div></div>';
-                cell2.innerHTML = '<div><div class=title>name</div></div>';
-                cell3.innerHTML = '<div><div class=title>密码</div></div>';
+                cell2.innerHTML = '<div><div class=title>标题</div></div>';
+                cell3.innerHTML = '<div><div class=title>作者</div></div>';
                 for (i = 0; i < result.length; i++) {
                     //console.info(result[i]);
                     var row = table.insertRow(i + 1);
                     var cell1 = row.insertCell(0);
                     var cell2 = row.insertCell(1);
                     var cell3 = row.insertCell(2);
-                    cell1.innerHTML = '<div><div class=tablebody>' + result[i].id + '</div></div>';
-                    cell2.innerHTML = '<div><div class=tablebody>' + result[i].name + '</div></div>';
-                    cell3.innerHTML = '<div><div class=tablebody>' + '***' + '</div></div>';
+                    cell1.innerHTML = '<div><div class=tablebody>' + result[i].blog_id + '</div></div>';
+                    cell2.innerHTML = '<div><div class=tablebody>' + result[i].blog_title + '</div></div>';
+                    cell3.innerHTML = '<div><div class=tablebody>' + result[i].name + '</div></div>';
                 }
             });
         },
 
         getLocalName: function () {
-            var name = rxye.USER.getCookie('name');
-            var id = rxye.USER.getCookie('id');
+            var name = rxye.BLOG.getCookie('name');
+            var id = rxye.BLOG.getCookie('id');
             if (name != null) {
                 document.getElementById('reg').style.display = 'none';
+                document.getElementById('login').style.display = 'none';
                 document.getElementById('name').innerHTML = name;
             }
+
         },
 
         getCookie: function (name) {
@@ -72,7 +95,7 @@ var rxye = {
             document.getElementById('next').onclick = function () {
                 console.info(document.getElementById('page').innerText);
                 if (!isfinish) {
-                    rxye.USER.getUser(eval(1 + parseInt(document.getElementById('page').innerText)));
+                    rxye.BLOG.getUserBlog(eval(1 + parseInt(document.getElementById('page').innerText)));
                     // document.getElementById('page').innerHTML = (eval(1 + parseInt(document.getElementById('page').innerText)));
                 }
             };
@@ -82,7 +105,7 @@ var rxye = {
 
                 if (parseInt(document.getElementById('page').innerText) > 1) {
                     isfinish = false;
-                    rxye.USER.getUser(eval(parseInt(document.getElementById('page').innerText) - 1));
+                    rxye.BLOG.getUserBlog(eval(parseInt(document.getElementById('page').innerText) - 1));
                     //document.getElementById('page').innerHTML = (eval(parseInt(document.getElementById('page').innerText) - 1));
                 }
             };
@@ -94,6 +117,8 @@ var rxye = {
 
 
     COMM: function (url, data, usersult) {
+        data={'data':data};
+        
         $.ajax({
             cache: false,
             type: "post",
@@ -107,9 +132,7 @@ var rxye = {
                     usersult(res.date);
                 } else {
                     isfinish = true;
-                }
-
-
+                } 
             },
             error: function (r) {
                 alert('faill');

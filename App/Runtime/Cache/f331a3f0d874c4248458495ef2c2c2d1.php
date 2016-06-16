@@ -21,32 +21,58 @@
     <link href="__PUBLIC__/css/index.css" rel="stylesheet" type="text/css"/>
   
    </head>
-   <body> 
+   <body>
 	  <div  class='right_div'>
 	  <span id='name'></span>
-	  <a  id='reg' href='./User/regeditH'>注册</a> 
+          <a  id='login' href='./User/loginH'>登录</a>
+
+          <div  class='right_div'>
+              <a  id='blog' href='./Blog/blog'>blog</a>
+
+          </div>     <a  id='reg' href='./User/regeditH'>注册</a>
+          <a  id='writerblog' href='./Blog/blogH'>写blog</a>
 	  </div>
- 
-  <table id='user' class="table table-striped"> 
-    
-   <tbody id="tbody">
-   </tbody>
-</table>
+      <br>
+      <!--轮播-->
+      <div>
+
+          <div id="myCarousel" class="carousel slide">
+              <!-- 轮播（Carousel）指标 -->
+              <ol class="carousel-indicators">
+                  <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                  <li data-target="#myCarousel" data-slide-to="1"></li>
+                  <li data-target="#myCarousel" data-slide-to="2"></li>
+              </ol>
+              <!-- 轮播（Carousel）项目 -->
+              <div class="carousel-inner">
+                  <div class="item active"   >
+                      <img src="__PUBLIC__/img/1.jpg" alt="First slide"  style="width: 100% ;height: 200px" >
+                  </div>
+                  <div class="item">
+                      <img src="__PUBLIC__/img/2.jpg" alt="Second slide"  style="width: 100% ;height: 200px">
+                  </div>
+                  <div class="item">
+                      <img src="__PUBLIC__/img/3.jpg" alt="Third slide"  style="width: 100% ;height: 200px">
+                  </div>
+              </div>
+              <!-- 轮播（Carousel）导航 -->
+              <a class="carousel-control left" href="#myCarousel"
+                 data-slide="prev">&lsaquo;</a>
+              <a class="carousel-control right" href="#myCarousel"
+                 data-slide="next">&rsaquo;</a>
+          </div>
+      </div>
 
 
-<div  class='right_div'>
-<span  class='page' id='before'>上一页</span>
-<span   id='page'>1</span>
-<span  class='page' id='next'>下一页</span>
 
 
-</div>
+
 
   <script type="text/javascript">
     $(function () { 
-    rxye.USER.getUser(1);
- 	rxye.USER.onevent();
-	rxye.USER.getLocalName();
+    rxye.BLOG.getUserBlog(1); 	 
+	rxye.BLOG.getLocalName();
+	rxye.BLOG.onevent();
     });
 </script>
  

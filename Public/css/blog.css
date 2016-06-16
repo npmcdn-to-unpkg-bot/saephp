@@ -1,0 +1,15 @@
+.ceneter_div{
+	position: absolute;
+	top: 10%;
+	left: 50%;
+	transform: translate(-50%, -50%);	
+	margin-left:12px;
+	margin-right:12px;
+	
+	
+}
+
+.form-control{
+	margin-right: 16px;
+	margin-left: 16px;
+}

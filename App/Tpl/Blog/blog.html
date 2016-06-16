@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit();?><!DOCTYPE html>
+<!DOCTYPE html>
 <html>
    <head>
       <title>首页</title>
@@ -17,22 +17,38 @@
 
 <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
 <script src="http://apps.bdimg.com/libs/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-<script src="__PUBLIC__/js/jquery.md5.js"></script>
- <script src="__PUBLIC__/js/user.js"></script>
-  <link href="__PUBLIC__/css/regedit.css" rel="stylesheet" type="text/css"/>
-   </head>
-   <body>  
-  <div class='ceneter_div'>
-	<div><input  id='name' placeholder='名字'/></div>
-	<div><input id='pwd' placeholder='密码' type='password'/></div>
-	<div><input  class='btn ceneter_input' id='summit' value='提交'type='button'/></div>
-  </div>
+ <script src="__PUBLIC__/js/blog.js"></script>
+    <link href="__PUBLIC__/css/index.css" rel="stylesheet" type="text/css"/>
   
+   </head>
+   <body> 
+	  <div  class='right_div'>
+	  <span id='name'></span>
+          <a  id='login' href='./User/loginH'>登录</a>
+          <a  id='reg' href='./User/regeditH'>注册</a>
+          <a  id='writerblog' href='./blogH'>写blog</a>
+	  </div>
  
+  <table id='blog' class="table table-striped">
+    
+   <tbody id="tbody">
+   </tbody>
+</table>
+
+
+<div  class='right_div'>
+<span  class='page' id='before'>上一页</span>
+<span   id='page'>1</span>
+<span  class='page' id='next'>下一页</span>
+
+
+</div>
 
   <script type="text/javascript">
     $(function () { 
-    rxye.USER.init();
+    rxye.BLOG.getUserBlog(1); 	 
+	rxye.BLOG.getLocalName();
+	rxye.BLOG.onevent();
     });
 </script>
  

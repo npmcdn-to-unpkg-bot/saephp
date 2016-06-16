@@ -38,13 +38,7 @@ function fail($date,$msg){
 	));
 	} 
 	 
-}
-
-
-
-
-
-
+} 
 
 
 ?>

@@ -5,16 +5,30 @@
  */
 
 
-class IndexAction extends Action {
+import('ORG.Vquery');
 
-    protected function _initialize() {
+class IndexAction extends Action
+{
+
+    protected function _initialize()
+    {
+        $arr = array(
+            "url" => 'http://www.baidu.com',
+            'method' => 'get' or 'post',
+            'data' => array('username' => 'admin', 'password' > 'admin'),);
+
+        // $arr=file_get_contents("http://www.jd.com/allSort.aspx");
+        
+
         header("Content-Type:text/html; charset=utf-8");
-    }  
-   
-   
-    public function index() {  
+    }
+
+
+    public function index()
+    {
+
         $this->display();
-    } 
+    }
 }
 
 ?>

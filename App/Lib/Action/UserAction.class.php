@@ -29,8 +29,8 @@ class UserAction extends Action {
 	
 	public function  regedit(){		
 		$user=M('user'); 
-		//echo  base64_decode(); 
-		 $data=($_POST['data']); 
+
+		 $data=$_POST['data'];
 			$data['pwd']=md5($data['pwd']);
 				
 			$result=$user->add($data);   
@@ -40,24 +40,39 @@ class UserAction extends Action {
 			}else{
 			$this->ajaxReturn(success($result),'jsonp');
 			}
-		
-		
 			
-		}  
-	 
- 
-	
+		}
 	
 	
 	public function  regeditH(){
 		$this->display();
 	}
 	
+	public function  loginH(){		
+		$this->display('login');
+		
+	}
 	
+	public  function  login(){
+		$User=M('user');
+		$data=$_POST['data'];
+		$result=$User->where("name=%s",array($data['name']))->find();
 
-	
-	
-	
+		if(empty($result)){
+			$this->ajaxReturn(fail('','用户不存在'),'jsonp');
+		}else{
+		//exit($this->ajaxReturn(fail('',($data['pwd']).'+'.md5($result['pwd'])),'jsonp'));
+
+			if(md5($data['pwd'])!=$result['pwd']){
+				$this->ajaxReturn(fail('','密码错误'),'jsonp');
+			}else{
+				$this->ajaxReturn(success($result['id']),'jsonp');
+			}
+
+		}
+		
+		
+	}
 	
 
 }
