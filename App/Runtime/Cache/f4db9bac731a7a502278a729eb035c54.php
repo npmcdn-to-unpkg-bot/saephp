@@ -38,7 +38,7 @@
 <script type="text/javascript">
     $(function () {
         $("#content").markdown({autofocus:false,savable:false})
-         
+
         rxye.BLOG.initWriter();
         rxye.BLOG.getLocalName();
 		

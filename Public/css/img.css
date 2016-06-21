@@ -1,0 +1,23 @@
+﻿#img{
+    -webkit-column-count: 3;
+    /*-webkit-column-gap: 10px；
+    -webkit-column-rule: 5px solid #333；
+    -webkit-column-width: 210px；*/
+
+    -moz-column-count: 3;
+    /*-moz-column-gap: 20px；
+    -moz-column-rule: 5px solid #333；
+    -moz-column-width: 210px；*/
+
+    column-count: 3;
+    /*column-gap: 10px；
+    column-rule: 5px solid #333；
+    column-width: 210px；*/
+
+}
+
+#img img{
+	
+	width:auto;
+	 height:180px;
+}

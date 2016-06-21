@@ -8,8 +8,11 @@ var rxye = {
         blog: function () {
             return './getBlog';
         },
-        writerblog:function () {
+        writerblog: function () {
             return './insertBlog';
+        },
+        login: function () {
+            return './User/loginH';
         }
 
     },
@@ -17,16 +20,33 @@ var rxye = {
 
     BLOG: {
         writer: function () {
-            var  user_id=rxye.BLOG.getCookie('id');
-            var title=document.getElementById('title').value;
-            var  content=document.getElementById('content').value;
-            var  data={
-                'blog_title':title,
-                'blog_content':content,
-                'user_id':user_id
+            var user_id = rxye.BLOG.getCookie('id');
+            var title = document.getElementById('title').value;
+            var content = document.getElementById('content').value;
+
+
+            if (title && title == null) {
+                return;
+            }
+
+            if (content && content == null) {
+                return;
+            }
+
+            if (user_id && user_id == null) {
+
+                location.href = login();
+                return;
+            }
+
+
+            var data = {
+                'blog_title': title,
+                'blog_content': content,
+                'user_id': user_id
             };
 
-            rxye.COMM(rxye.URL.writerblog(),data,function result(res) {
+            rxye.COMM(rxye.URL.writerblog(), data, function result(res) {
                 alert('发表成功');
             });
         },
@@ -42,31 +62,62 @@ var rxye = {
             data = {
                 'page': page - 1,
                 'count': 10
-            }; 
+            };
             rxye.COMM(rxye.URL.blog(), data, function blogrsult(result) {
-                var table = document.getElementById('blog');
-                $('#blog tr').empty();
+                var oBlog = document.getElementById('blog');
+                oBlog.innerHTML = "";
                 if (result.length < 10) {
                     isfinish = true;
                 }
                 document.getElementById('page').innerHTML = page;
 
-                var row = table.insertRow(0);
-                var cell1 = row.insertCell(0);
-                var cell2 = row.insertCell(1);
-                var cell3 = row.insertCell(2);
-                cell1.innerHTML = '<div><div class=title>id</div></div>';
-                cell2.innerHTML = '<div><div class=title>标题</div></div>';
-                cell3.innerHTML = '<div><div class=title>作者</div></div>';
-                for (i = 0; i < result.length; i++) {
-                    //console.info(result[i]);
-                    var row = table.insertRow(i + 1);
-                    var cell1 = row.insertCell(0);
-                    var cell2 = row.insertCell(1);
-                    var cell3 = row.insertCell(2);
-                    cell1.innerHTML = '<div><div class=tablebody>' + result[i].blog_id + '</div></div>';
-                    cell2.innerHTML = '<div><div class=tablebody>' + result[i].blog_title + '</div></div>';
-                    cell3.innerHTML = '<div><div class=tablebody>' + result[i].name + '</div></div>';
+
+                for (var i = 0; i < result.length; i++) { 
+                    var cellDiv = document.createElement('div');
+                    cellDiv.className = 'col-xs-4 panel panel-default';
+                    oBlog.appendChild(cellDiv);
+                    /**
+                     * 1
+                     * @type {Element}
+                     */
+                    var cellDivId = document.createElement("div");
+                    cellDivId.className = 'col-xs-4 panel panel-default';
+                    cellDivId.innerHTML = result[i].blog_id;
+
+                    cellDiv.appendChild(cellDivId);
+
+                    /**
+                     * 2
+                     * @type {Element}
+                     */
+                    var cellDivTitle = document.createElement("div");
+                    cellDivTitle.className = 'col-xs-4 panel panel-default';
+                    cellDivTitle.innerHTML = result[i].blog_title;
+
+                    cellDiv.appendChild(cellDivTitle);
+
+
+                    var cellDivContent = document.createElement("div");
+                    cellDivContent.className = 'col-xs-4 panel panel-default';
+                    cellDivContent.innerHTML = result[i].blog_content;
+                    var cellArticle = document.createElement('article');
+
+                    cellArticle.className = 'container';
+                    cellArticle.innerText = result[i].blog_content;
+                    cellDivContent.appendChild(cellArticle); 
+                    cellDiv.appendChild(cellDivContent);
+
+
+                    var cellDivUser = document.createElement("div");
+                    cellDivUser.className = 'col-xs-4 panel panel-default';
+                    cellDivUser.innerHTML = result[i].name;
+
+                    cellDiv.appendChild(cellDivUser);
+
+
+                    oBlog.appendChild(cellDiv);
+
+
                 }
             });
         },
@@ -81,7 +132,11 @@ var rxye = {
             }
 
         },
-
+        /**
+         * 取session
+         * @param name
+         * @returns {null}
+         */
         getCookie: function (name) {
             var arr, reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)");
             if (arr = document.cookie.match(reg))
@@ -117,8 +172,8 @@ var rxye = {
 
 
     COMM: function (url, data, usersult) {
-        data={'data':data};
-        
+        data = {'data': data};
+
         $.ajax({
             cache: false,
             type: "post",
@@ -132,7 +187,7 @@ var rxye = {
                     usersult(res.date);
                 } else {
                     isfinish = true;
-                } 
+                }
             },
             error: function (r) {
                 alert('faill');
